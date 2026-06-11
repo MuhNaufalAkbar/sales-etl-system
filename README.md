@@ -1,3 +1,4 @@
+
 # Sales ETL System
 
 Sistem ETL (Extract, Transform, Load) berbasis Laravel untuk mengotomatisasi proses pengolahan data penjualan dari beberapa file Excel menjadi output Marketing dan Finance yang siap digunakan.
@@ -317,3 +318,7 @@ Muhammad Naufal Akbar
 Case Study Full-Stack Engineer
 
 PT Sigma Digital Nusantara
+=======
+# sales-etl-system
+Fullstack ETL Automation System using Laravel 12 for processing sales Excel files into Marketing and Finance reports.
+
