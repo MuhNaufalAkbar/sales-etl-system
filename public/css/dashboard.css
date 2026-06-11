@@ -1,0 +1,145 @@
+/* ============================================================
+   Dashboard Sales ETL — Stylesheet
+   ============================================================ */
+
+/* ── Reset & Base ── */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* ── Layout ── */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* ── Buttons ── */
+.btn {
+    background: #2563eb;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ── Summary Cards Grid ── */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.card p {
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ── Sections ── */
+.section {
+    margin-bottom: 30px;
+}
+
+.section h3 {
+    margin-bottom: 15px;
+}
+
+/* ── Table ── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th {
+    background: #f8fafc;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-top: 1px solid #eee;
+}
+
+/* ── Status Badges ── */
+.badge {
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge-uploaded {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.badge-processing {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-transforming {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+.badge-completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-failed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ── Export Items ── */
+.export-item {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.download-btn {
+    background: #16a34a;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
