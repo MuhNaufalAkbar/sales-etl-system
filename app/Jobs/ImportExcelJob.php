@@ -36,24 +36,42 @@ class ImportExcelJob implements ShouldQueue
             $batch->id
         )->get();
 
-        foreach ($files as $file) {
+            foreach ($files as $file) {
 
-    $fullPath = storage_path(
-        'app/private/' . $file->path
-    );
+                // determine storage path: try standard and private locations
+                $candidates = [
+                    storage_path('app/' . $file->path),
+                    storage_path('app/private/' . $file->path),
+                ];
 
-    if ($file->file_type === 'sales_daily') {
+                $fullPath = null;
 
-        Excel::import(
-            new SalesDailyImport($batch->id),
-            $fullPath
-        );
+                foreach ($candidates as $p) {
+                    if (file_exists($p)) {
+                        $fullPath = $p;
+                        break;
+                    }
+                }
 
-        $file->update([
-            'status' => 'imported'
-        ]);
-    }
-}
+                if (!$fullPath) {
+                    // mark file as failed and continue
+                    $file->update(['status' => 'failed']);
+                    $batch->update(['status' => 'failed', 'error_message' => 'File not found: ' . $file->path]);
+                    continue;
+                }
+
+                if ($file->file_type === 'sales_daily') {
+
+                    Excel::import(
+                        new SalesDailyImport($batch->id),
+                        $fullPath
+                    );
+
+                    $file->update([
+                        'status' => 'imported'
+                    ]);
+                }
+            }
 
         $batch->update([
             'progress' => 40,

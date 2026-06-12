@@ -17,15 +17,33 @@ class GenerateOutputJob implements ShouldQueue
     ) {}
 
     public function handle(): void
-{
-    Excel::store(
-        new MarketingExport($this->batchId),
-        'exports/MARKETING_'.$this->batchId.'.xlsx'
-    );
+    {
+        // store exports under private/exports to match ExportController expectations
+        Excel::store(
+            new MarketingExport($this->batchId),
+            'private/exports/MARKETING_'.$this->batchId.'.xlsx'
+        );
 
-    Excel::store(
-        new FinanceExport($this->batchId),
-        'exports/FINANCE_'.$this->batchId.'.xlsx'
-    );
-}
+        Excel::store(
+            new FinanceExport($this->batchId),
+            'private/exports/FINANCE_'.$this->batchId.'.xlsx'
+        );
+
+        // optionally record OutputFile entries
+        try {
+            \App\Models\OutputFile::create([
+                'import_batch_id' => $this->batchId,
+                'file_name' => 'MARKETING_'.$this->batchId.'.xlsx',
+                'path' => 'private/exports/MARKETING_'.$this->batchId.'.xlsx',
+            ]);
+
+            \App\Models\OutputFile::create([
+                'import_batch_id' => $this->batchId,
+                'file_name' => 'FINANCE_'.$this->batchId.'.xlsx',
+                'path' => 'private/exports/FINANCE_'.$this->batchId.'.xlsx',
+            ]);
+        } catch (\Throwable $e) {
+            // do not fail the job if recording output metadata fails
+        }
+    }
 }
