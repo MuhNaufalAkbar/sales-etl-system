@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\RawSale;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class SalesDailyImport implements ToCollection
 {
@@ -29,7 +30,8 @@ class SalesDailyImport implements ToCollection
         'import_batch_id' => $this->batchId,
         'source_type' => 'sales_daily',
 
-        'order_date' => $row[1] ?? null,
+        'order_date' => Date::excelToDateTimeObject($row[1])
+                    ->format('Y-m-d'),
         'advertiser' => $row[6] ?? null,
         'order_number' => $row[8] ?? null,
         'awb' => $row[9] ?? null,
